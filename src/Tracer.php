@@ -30,7 +30,7 @@ class Tracer
     public function __construct()
     {
         $this->files = File::allFiles(base_path().(config('tracer.path', '/storage/framework/views')));
-        $this->realPath = '<span class="laravel-trace"><p class="path"><?php echo str_replace("'.base_path().'", "", last($this->lastCompiled)) ?></p>';
+        $this->realPath = $this->buildRealPath(); 
         $this->debug = config('tracer.trace');
     }
 
@@ -71,4 +71,18 @@ class Tracer
             File::put($file, $content);
         }
     }
+
+    /**
+     * Build realPath.
+     * @param  [type] $file [description]
+     * @return [type]       [description]
+     */
+    public function buildRealPath($file)
+    {
+        $outerElement = '<span class="laravel-trace' . config("tracer.hideByDefault") ? " no-trace" : ""  . '">';
+        $innerElement = '<p class="path"><?php echo str_replace("'.base_path().'", "", last($this->lastCompiled)) ?></p>';
+        $realPath = $outerElement . $innerElement;
+        return $realPath;
+    }
+
 }
