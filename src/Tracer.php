@@ -77,9 +77,9 @@ class Tracer
      * @param  [type] $file [description]
      * @return [type]       [description]
      */
-    public function buildRealPath($file)
+    public function buildRealPath()
     {
-        $outerElement = '<span class="laravel-trace' . config("tracer.hideByDefault") ? " no-trace" : ""  . '">';
+        $outerElement = '<span class="laravel-trace' . (config("tracer.hideByDefault") ? " no-trace" : "")  . '">';
         $innerElement = '<p class="path"><?php echo str_replace("'.base_path().'", "", last($this->lastCompiled)) ?></p>';
         $realPath = $outerElement . $innerElement;
         return $realPath;
