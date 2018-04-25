@@ -11,7 +11,7 @@ class TracerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(\Illuminate\Contracts\Http\Kernel $kernel)
+    public function boot(\Illuminate\Contracts\Http\Kernel $kernel, Tracer $tracer)
     {
         $this->publishes([
             __DIR__.'/../config/tracer.php' => config_path('tracer.php'),
@@ -19,7 +19,7 @@ class TracerServiceProvider extends ServiceProvider
             __DIR__.'/../assets/js/laravel-tracer.js' => public_path('js/laravel-tracer.js'),
         ]);
 
-        $tracer = (new Tracer)->trace();
+        $tracer->trace();
 
         // Add AssetsMiddlware
         if (config('tracer.trace')) {
